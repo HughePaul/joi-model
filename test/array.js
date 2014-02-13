@@ -46,7 +46,7 @@ describe('JoiArray', function() {
         done();
     });
 
-    it('allows removeing items with pop and shift', function(done) {
+    it('allows removing items with pop and shift', function(done) {
 
         var schema = Joi.array().includes(Joi.string());
 
@@ -61,6 +61,33 @@ describe('JoiArray', function() {
         expect(shifted).to.equal('test1');
         expect(jarray.get(0)).to.equal('test2');
         expect(popped).to.equal('test3');
+
+        done();
+    });
+
+    it('allows splicing an array', function(done) {
+
+        var schema = Joi.array().includes(Joi.string());
+
+        var arr = ['test1', 'test2', 'test3'];
+
+        var jarray = new JoiArray(schema, null, arr);
+
+        var spliced = jarray.splice(1,1,'new','second');
+
+        expect(jarray.length).to.equal(4);
+        expect(spliced).to.deep.equal(['test2']);
+        expect(jarray.get(1)).to.equal('new');
+        expect(jarray.get(2)).to.equal('second');
+
+        var err;
+        try {
+            jarray.splice(1,2,99);
+        }catch(e) {
+            err = e;
+        }
+        expect(err).to.exist;
+        expect(err.message).to.contain('does not match any of the allowed types');
 
         done();
     });

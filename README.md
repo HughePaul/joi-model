@@ -18,7 +18,7 @@ var schema = {
 };
 ```
 
-Then create a model class for that schema:
+Create a model class for that schema:
 
 ```javascript
 var joiModel = require('joi-model');
@@ -26,13 +26,13 @@ var joiModel = require('joi-model');
 var MyModel = joiModel(schema);
 ```
 
-Then then create a document based on the model:
+Create a document based on the model:
 
 ```javascript
 var document = new MyModel();
 ```
 
-Then manipulate the document:
+Manipulate the document:
 
 ```javascript
 
