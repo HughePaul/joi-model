@@ -1,0 +1,37 @@
+{
+  "name": "joi-model",
+  "description": "Model generation based on Joi schema validation",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hughepaul/joi-model"
+  },
+  "main": "index",
+  "keywords": [
+    "schema",
+    "validation"
+  ],
+  "engines": {
+    "node": "0.10.x"
+  },
+  "dependencies": {
+    "lodash": "",
+    "joi": "2.5.x"
+  },
+  "devDependencies": {
+    "lab": "1.x.x"
+  },
+  "scripts": {
+    "test": "make test-cov"
+  },
+  "contributors": [
+    {
+      "name": "Paul Winkler",
+      "email": "paul@paulwinkler.co.uk"
+    }
+  ],
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/hughepaul/joi-models/issues"
+  }
+}
