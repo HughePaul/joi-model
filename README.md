@@ -30,10 +30,19 @@ Then then create a document based on the model:
 
 ```javascript
 var document = new MyModel();
+```
+
+Then manipulate the document:
+
+```javascript
 
 document.setData({
     a: 'hello',
     b: 'world'
+});
+
+document.updateData({
+    a: 'hello',
 });
 
 document.a = 'test';
@@ -47,6 +56,13 @@ document.b = 'hel'; // throws a length error
 
 JSON.stringify(document); // '{"a":"test","b":"another"}'
 
+```
+
+The object is validated after each action and will throw any errors that are found.
+
+Data can also be set to the document as it is created:
+
+```javascript
 var document = new MyModel({
     a: 'hello',
     b: 'world'

@@ -190,6 +190,8 @@ describe('joiModel', function() {
 
         var m = new SchemaModel(obj);
 
+        m.b = { b1: 'firstSubItem', b2: 'valid@email.com' };
+
         m.b.b2 = 'test@blah.com';
 
         var err;
@@ -199,6 +201,8 @@ describe('joiModel', function() {
             err = e;
         }
         expect(err).to.exist;
+
+        expect(m.b.b2).to.equal('test@blah.com');
 
         done();
     });
@@ -226,8 +230,24 @@ describe('joiModel', function() {
 
         expect(JSON.stringify(m)).to.equal('{"a":"aa","c":"testing"}');
 
+        expect('' + m).to.equal('{"a":"aa","c":"testing"}');
+
         done();
     });
 
+    it('does not allow an invalid schema object when creating a model', function(done) {
+
+        var schema = "bad object";
+
+        var err;
+        try {
+            var SchemaModel = joiModel(schema);
+        } catch (e) {
+            err = e;
+        }
+        expect(err).to.exist;
+
+        done();
+    });
 
 });
