@@ -418,7 +418,7 @@ describe('joiModel', function() {
         done();
     });
 
-    it('should be able to process a complex schema and throw an error when a condition is not met', function(done) {
+    it('is able to process a complex schema and throw an error when a condition is not met', function(done) {
 
         var adult = Joi.object({
             name: Joi.string().required(),
@@ -478,6 +478,23 @@ describe('joiModel', function() {
 
         expect(err).to.exist;
         expect(err.message).to.contain('must include less than (or equal to) 4 items');
+
+        done();
+    });
+
+    it('allows setting an object to undefined', function(done) {
+        var schema = {
+            name: Joi.string(),
+            toy: Joi.object({
+                name: Joi.string().required()
+            })
+        };
+
+        var MyModel = joiModel(schema);
+
+        var m = new MyModel({
+            name: 'Paul'
+        });
 
         done();
     });
