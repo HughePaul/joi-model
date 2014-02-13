@@ -77,6 +77,36 @@ describe('joiModel', function() {
         done();
     });
 
+    it('sets updates only the specified data when asked to update', function(done) {
+
+        var schema = {
+            a: Joi.number().min(0).max(3).without('none'),
+            b: Joi.string().valid('a', 'b', 'c'),
+            c: Joi.string().email().optional()
+        };
+
+        var SchemaModel = joiModel(schema);
+
+        var obj = {
+            a: 1,
+            b: 'a',
+            c: 'joe@example.com'
+        };
+
+        var m = new SchemaModel(obj);
+
+        m.updateData({
+            b: 'c',
+            a: 3
+        });
+
+        expect(m.a).to.equal(3);
+        expect(m.b).to.equal('c');
+        expect(m.c).to.equal('joe@example.com');
+
+        done();
+    });
+
     it('converts values to the correct type', function(done) {
 
         var schema = {
@@ -190,7 +220,10 @@ describe('joiModel', function() {
 
         var m = new SchemaModel(obj);
 
-        m.b = { b1: 'firstSubItem', b2: 'valid@email.com' };
+        m.b = {
+            b1: 'firstSubItem',
+            b2: 'valid@email.com'
+        };
 
         m.b.b2 = 'test@blah.com';
 
