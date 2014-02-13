@@ -3,7 +3,7 @@ joi-model
 
 Model encapsulation of a Joi schema
 
-[![Build Status](https://secure.travis-ci.org/hughepaul/joi-model.png)](http://travis-ci.org/hughepaul/joi-model)
+[![Build Status](https://secure.travis-ci.org/HughePaul/joi-model.png)](http://travis-ci.org/HughePaul/joi-model)
 
 # Usage
 
