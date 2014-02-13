@@ -182,7 +182,7 @@ describe('JoiArray', function() {
             err = e;
         }
         expect(err).to.exist;
-        expect(err.message).to.contain('does not match any of the allowed types');
+        expect(err.message).to.contain('is not allowed to be undefined');
 
         done();
     });
@@ -211,7 +211,7 @@ describe('JoiArray', function() {
             err = e;
         }
         expect(err).to.exist;
-        expect(err.message).to.contain('does not match any of the allowed types');
+        expect(err.message).to.contain('must be a number');
 
         done();
     });
