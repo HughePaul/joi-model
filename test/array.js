@@ -87,7 +87,8 @@ describe('JoiArray', function() {
             err = e;
         }
         expect(err).to.exist;
-        expect(err.message).to.contain('does not match any of the allowed types');
+        expect(err.message).to.contain('array value in position 0 fails because the value of');
+        expect(err.message).to.contain('must be a string');
 
         done();
     });
@@ -183,7 +184,7 @@ describe('JoiArray', function() {
             err = e;
         }
         expect(err).to.exist;
-        expect(err.message).to.contain('does not match any of the allowed types');
+        expect(err.message).to.contain('array value in position 1 fails because the value of 1 must be a string');
 
         done();
     });
