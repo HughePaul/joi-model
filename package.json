@@ -1,7 +1,7 @@
 {
   "name": "joi-model",
   "description": "Model generation based on Joi schema validation",
-  "version": "0.0.7",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
     "url": "git://github.com/hughepaul/joi-model"
