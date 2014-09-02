@@ -15,7 +15,7 @@ describe('joiModel', function() {
     it('creates a model class from a schema', function(done) {
 
         var schema = {
-            a: Joi.number().min(0).max(3).without('none'),
+            a: Joi.number().min(0).max(3),
             b: Joi.string().valid('a', 'b', 'c', '6'),
             c: Joi.string().email().optional()
         };
@@ -30,7 +30,7 @@ describe('joiModel', function() {
     it('creates a model from a model class', function(done) {
 
         var schema = {
-            a: Joi.number().min(0).max(3).without('none'),
+            a: Joi.number().min(0).max(3),
             b: Joi.string().valid('a', 'b', 'c'),
             c: Joi.string().email().optional()
         };
@@ -55,7 +55,7 @@ describe('joiModel', function() {
     it('sets value of a model', function(done) {
 
         var schema = {
-            a: Joi.number().min(0).max(3).without('none'),
+            a: Joi.number().min(0).max(3),
             b: Joi.string().valid('a', 'b', 'c'),
             c: Joi.string().email().optional()
         };
@@ -80,7 +80,7 @@ describe('joiModel', function() {
     it('sets updates only the specified data when asked to update', function(done) {
 
         var schema = {
-            a: Joi.number().min(0).max(3).without('none'),
+            a: Joi.number().min(0).max(3),
             b: Joi.string().valid('a', 'b', 'c'),
             c: Joi.string().email().optional()
         };
@@ -110,13 +110,13 @@ describe('joiModel', function() {
     it('converts values to the correct type', function(done) {
 
         var schema = {
-            a: Joi.number().min(0).max(3).without('none'),
+            a: Joi.number().min(0).max(3),
             b: Joi.string().valid('a', 'b', 'c'),
             c: Joi.string().email().optional()
         };
 
         var SchemaModel = joiModel(schema, {
-            modify: true
+            convert: true
         });
 
         var obj = {
@@ -125,9 +125,7 @@ describe('joiModel', function() {
             c: 'joe@example.com'
         };
 
-        var m = new SchemaModel(obj, {
-            convert: true
-        });
+        var m = new SchemaModel(obj);
 
         m.a = '3';
 
@@ -139,7 +137,7 @@ describe('joiModel', function() {
     it('throws an error when the wrong type is set', function(done) {
 
         var schema = {
-            a: Joi.number().min(0).max(3).without('none'),
+            a: Joi.number().min(0).max(3),
             b: Joi.string().valid('a', 'b', 'c', '6'),
             c: Joi.string().email().optional()
         };
@@ -169,7 +167,7 @@ describe('joiModel', function() {
     it('throws an error when a model is created with data of the wrong type', function(done) {
 
         var schema = {
-            a: Joi.number().min(0).max(3).without('none'),
+            a: Joi.number().min(0).max(3),
             b: Joi.string().valid('a', 'b', 'c', '6'),
             c: Joi.string().email().optional()
         };
@@ -200,7 +198,7 @@ describe('joiModel', function() {
 
         var schema = {
             a: Joi.string().valid('a', 'b', 'c'),
-            b: Joi.object({
+            b: Joi.object().keys({
                 b1: Joi.string().required(),
                 b2: Joi.string().email().required()
             }),
@@ -286,13 +284,13 @@ describe('joiModel', function() {
 
     it('allows multiple types to be specified for a property', function(done) {
 
-        var schema = {
-            username: Joi.string().alphanum().min(3).max(30).with('birthyear').required(),
-            password: Joi.string().regex(/[a-zA-Z0-9]{3,30}/).without('access_token'),
+        var schema = Joi.object().keys({
+            username: Joi.string().alphanum().min(3).max(30).required(),
+            password: Joi.string().regex(/[a-zA-Z0-9]{3,30}/),
             access_token: [Joi.string(), Joi.number()],
             birthyear: Joi.number().integer().min(1900).max(2013),
             email: Joi.string().email()
-        };
+        }).with('username','birthyear').without('password','access_token');
 
         var SchemaModel = joiModel(schema);
 
@@ -363,7 +361,6 @@ describe('joiModel', function() {
             name: 'Lucy',
             age: 12
         }];
-
         m.children[0].age = 14;
         var err;
         try {
@@ -371,7 +368,6 @@ describe('joiModel', function() {
         } catch (e) {
             err = e;
         }
-
         expect(err).to.exist;
         expect(err.message).to.contain('must be a number');
 
@@ -381,13 +377,13 @@ describe('joiModel', function() {
     it('should remove items by setting them to undefined', function(done) {
 
         var schema = {
-            a: Joi.number().min(0).max(3).without('none'),
+            a: Joi.number().min(0).max(3),
             b: Joi.string().valid('a', 'b', 'c'),
             c: Joi.string().email().optional()
         };
 
         var SchemaModel = joiModel(schema, {
-            modify: true
+            convert: true
         });
 
         var obj = {
@@ -477,7 +473,7 @@ describe('joiModel', function() {
         }
 
         expect(err).to.exist;
-        expect(err.message).to.contain('must include less than (or equal to) 4 items');
+        expect(err.message).to.contain('value must contain less than or equal to 4 items');
 
         done();
     });

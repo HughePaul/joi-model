@@ -87,8 +87,7 @@ describe('JoiArray', function() {
             err = e;
         }
         expect(err).to.exist;
-        expect(err.message).to.contain('array value in position 0 fails because the value of');
-        expect(err.message).to.contain('must be a string');
+        expect(err.message).to.contain('value position 0 fails because value must be a string');
 
         done();
     });
@@ -111,7 +110,7 @@ describe('JoiArray', function() {
     it('loads an array based on an array schema including an object', function(done) {
 
         var schema = Joi.array().includes(Joi.object({
-            a: Joi.number().min(0).max(3).without('none'),
+            a: Joi.number().min(0).max(3),
             b: Joi.string().valid('a', 'b', 'c'),
             c: Joi.string().email().optional()
         }));
@@ -184,7 +183,7 @@ describe('JoiArray', function() {
             err = e;
         }
         expect(err).to.exist;
-        expect(err.message).to.contain('array value in position 1 fails because the value of 1 must be a string');
+        expect(err.message).to.contain('value position 1 fails because 1 must be a string');
 
         done();
     });
@@ -210,7 +209,7 @@ describe('JoiArray', function() {
             err = e;
         }
         expect(err).to.exist;
-        expect(err.message).to.contain('is not allowed to be undefined');
+        expect(err.message).to.contain('b is required');
 
         done();
     });
